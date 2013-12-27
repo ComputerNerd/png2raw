@@ -3,8 +3,8 @@
 #include <stdio.h>
 #include <png.h>
 #include <zlib.h>
-//compile gcc main.c -lpng -std=c99 -O2 -s -Wall -Wextra -o png2raw565
-uint8_t * loadpng(char * filename,uint32_t * width,uint32_t * height){
+//compile gcc main.c -lpng -O2 -s -Wall -Wextra -o png2raw565
+static uint8_t * loadpng(char * filename,uint32_t * width,uint32_t * height){
 	//loads png as 24 bit
 	FILE *fp = fopen(filename, "rb");
 	if (!fp){
@@ -59,7 +59,7 @@ uint8_t * loadpng(char * filename,uint32_t * width,uint32_t * height){
 }
 int main(int argc,char ** argv){
 	if(argc!=3){
-		puts("usage ./png2raw565 in.png out.h");
+		printf("usage %s in.png out.h\n",argv[0]);
 		return 1;
 	}
 	uint32_t w,h;
@@ -69,7 +69,7 @@ int main(int argc,char ** argv){
 		return 1;
 	}
 	FILE * fo=fopen(argv[2],"w");
-	fprintf(fo,"/*FIlename %s\nWidth: %d Height: %d*/\nconst uint16_t %s[] PROGMEM ={\n",argv[1],w,h,argv[1]);
+	fprintf(fo,"/*Filename %s\nWidth: %d Height: %d*/\nconst uint16_t %s[] PROGMEM ={\n",argv[1],w,h,argv[1]);
 	uint32_t x,y;
 	for(y=0;y<h;++y){
 		for(x=0;x<w;++x){
