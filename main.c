@@ -69,7 +69,7 @@ char * lastStrstr(const char * haystack,const char * needle){
 }
 int main(int argc,char ** argv){
 	if(argc<3){
-		printf("usage %s [-8] in.png out.h\nThe -8 skips the rgb565 conversion and rights rgb888 instead",argv[0]);
+		printf("usage %s [-8] in.png out.h\nThe -8 skips conversion to rgb565 and instead writes an rgb888 image instead\n",argv[0]);
 		return 1;
 	}
 	uint32_t w,h;
