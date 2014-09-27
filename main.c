@@ -34,20 +34,20 @@ static uint8_t * loadpng(char * filename,uint32_t * width,uint32_t * height){
 		puts("Error creating png info struct");
 		png_destroy_read_struct(&png_ptr,(png_infopp)NULL, (png_infopp)NULL);
 		return 0;
-    }
+	}
 	if (setjmp(png_jmpbuf(png_ptr))){
 		puts("libpng setjmp error");
 		png_destroy_read_struct(&png_ptr, &info_ptr,NULL);
 		fclose(fp);
 		return 0;
-    }
-    png_init_io(png_ptr, fp);
-    png_set_sig_bytes(png_ptr, 8);
-    png_read_info(png_ptr, info_ptr);
-    *width=png_get_image_width(png_ptr,info_ptr);
-    *height=png_get_image_height(png_ptr,info_ptr);
-    int color_type=png_get_color_type(png_ptr,info_ptr);
-    //Make sure image is 24-bit rgb png
+	}
+	png_init_io(png_ptr, fp);
+	png_set_sig_bytes(png_ptr, 8);
+	png_read_info(png_ptr, info_ptr);
+	*width=png_get_image_width(png_ptr,info_ptr);
+	*height=png_get_image_height(png_ptr,info_ptr);
+	int color_type=png_get_color_type(png_ptr,info_ptr);
+	//Make sure image is 24-bit rgb png
 	if (color_type == PNG_COLOR_TYPE_PALETTE)
 		png_set_palette_to_rgb(png_ptr);
 	if (color_type == PNG_COLOR_TYPE_GRAY || color_type == PNG_COLOR_TYPE_GRAY_ALPHA)
@@ -69,7 +69,7 @@ char * lastStrstr(const char * haystack,const char * needle){
 }
 int main(int argc,char ** argv){
 	if(argc<3){
-		printf("usage %s [-8] in.png out.h\nThe -8 skips conversion to rgb565 and instead writes an rgb888 image instead\n",argv[0]);
+		printf("usage %s [-8] in.png out.h\nThe -8 skips conversion to rgb565 and instead writes an rgb888 image.\n",argv[0]);
 		return 1;
 	}
 	uint32_t w,h;
